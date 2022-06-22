@@ -1,10 +1,18 @@
-import { CaretRight, DiscordLogo, FileArrowDown, Lightning } from "phosphor-react";
+import { DefaultUi, Player, Youtube } from "@vime/react";
+import { CaretRight, DiscordLogo, FileArrowDown, Image, Lightning } from "phosphor-react";
+
+import '@vime/core/themes/default.css'
 
 export function Video() {
   return (
     <div className="flex-1">
       <div className="bg-black flex justify-center ">
-        <div className="h-full w-full max-w-[1100px] mx-h-[60vh] aspect-video"></div>
+        <div className="h-full w-full max-w-[1100px] mx-h-[60vh] aspect-video">
+          <Player>
+            <Youtube videoId="Ox_zb2cs9zM"/>
+            <DefaultUi />
+          </Player>
+        </div>
       </div>
 
       <div className="p-8 max-w-[1100px] mx-auto">
@@ -53,7 +61,7 @@ export function Video() {
               <FileArrowDown size={40} />
             </div>
             <div className="py-6 leading-relaxed">
-              <strong className="text-2xl">
+              <strong className="text-xl">
                 Material complementar
               </strong>
               <p className="text-sm text-gray-200 mt-2">
@@ -67,11 +75,11 @@ export function Video() {
 
           <a href="" className="bg-gray-700 rounded overflow-hidden flex items-stretch gap-6 hover:bg-gray-600 transition-colors">
             <div className="bg-green-700 h-full p-6 flex items-center">
-              <FileArrowDown size={40} />
+              <Image size={40} />
             </div>
             <div className="py-6 leading-relaxed">
-              <strong className="text-2xl">
-                Wallpapers exlclusivos
+              <strong className="text-xl">
+                Wallpapers exclusivos
               </strong>
               <p className="text-sm text-gray-200 mt-2">
                 Baixe wallpapers exclusivos do Ignite Lab e personalize a sua máquina
