@@ -1,8 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
-import { DefaultUi, Player, Youtube } from "@vime/react";
+import YouTube, { YouTubeProps }  from 'react-youtube';
 import { CaretRight, DiscordLogo, FileArrowDown, Image, Lightning } from "phosphor-react";
-
-import '@vime/core/themes/default.css'
 
 const GET_LESSON_BY_SLUG_QUERY = gql`
   query GetLessonBySlug ($slug: String) {
@@ -43,11 +41,25 @@ export function Video(props: VideoProps) {
     }
   })
 
+  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo();
+  }
+
+  const vide_opts = {
+    height: '390',
+    width: '100%',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 0,
+    },
+  };
+
   if (!data) {
     return (
       <div className="flex-1">
         <div className="bg-black flex justify-center">
-          <div className="h-full w-full max-w-[1100px] mx-h-[60vh] aspect-video flex justify-center items-center">
+          <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video flex justify-center items-center">
             <p className="mt-4 text-gray-200 leading-relaxed">
               Carregando...
             </p>  
@@ -60,11 +72,8 @@ export function Video(props: VideoProps) {
   return (
     <div className="flex-1">
       <div className="bg-black flex justify-center ">
-        <div className="h-full w-full max-w-[1100px] mx-h-[60vh] aspect-video">
-          <Player>
-            <Youtube videoId={data.lesson.videoId}/>
-            <DefaultUi />
-          </Player>
+        <div className="h-full w-full max-w-[1100px] max-h-[58vh]">
+          <YouTube videoId={data.lesson.videoId} opts={vide_opts} onReady={onPlayerReady} />;
         </div>
       </div>
 
