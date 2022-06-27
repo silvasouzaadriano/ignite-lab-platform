@@ -1,6 +1,6 @@
-import { gql, useMutation } from "@apollo/client"
 import { useState, FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from 'react-toastify';
 import { Logo } from "../components/Logo"
 import { useCreateSubscriberMutation } from "../graphql/generated"
 
@@ -18,12 +18,22 @@ export function Subscribe() {
   async function handleSubscribe(event: FormEvent) {
     event?.preventDefault()
 
+    if (name === '' || email === '') {
+      toast.error("Nome e e-email são obrigatório!", {
+        theme: "colored"
+      })
+      return
+    }
+
     await createSubscriber({
       variables: {
         name,
         email,
       }
     })
+
+    setName('')
+    setEmail('')
 
     navigate('/event')
   }
