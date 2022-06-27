@@ -1,4 +1,4 @@
-import YouTube, { YouTubeProps }  from 'react-youtube';
+import { DefaultUi, Player, Youtube } from "@vime/react";
 import { CaretRight, DiscordLogo, FileArrowDown, Image, Lightning } from "phosphor-react";
 import { useGetLessonBySlugQuery } from "../graphql/generated";
 
@@ -13,25 +13,11 @@ export function Video(props: VideoProps) {
     }
   })
 
-  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
-    // access to player in all event handlers via event.target
-    event.target.pauseVideo();
-  }
-
-  const vide_opts = {
-    height: '660',
-    width: '100%',
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 0,
-    },
-  };
-
   if (!data || !data.lesson) {
     return (
       <div className="flex-1">
-        <div className="bg-black flex justify-center max-h-[100vh] ">
-          <div className="h-full w-full max-w-[1100px] aspect-video flex justify-center items-center">
+        <div className="bg-black flex justify-center">
+          <div className="h-full w-full max-w-[1100px] mx-h-[60vh] aspect-video flex justify-center items-center">
             <p className="mt-4 text-gray-200 leading-relaxed">
               Carregando...
             </p>  
@@ -43,9 +29,12 @@ export function Video(props: VideoProps) {
 
   return (
     <div className="flex-1">
-      <div className="bg-black flex justify-center max-h-[100vh] ">
-        <div className="h-full w-full max-w-[1100px] aspect-video">
-          <YouTube videoId={data.lesson.videoId} opts={vide_opts} onReady={onPlayerReady} />;
+      <div className="bg-black flex justify-center">
+        <div className="h-full w-full max-w-[1100px] mx-h-[60vh] aspect-video">
+            <Player>
+              <Youtube key={data.lesson.videoId} videoId={data.lesson.videoId}/>
+              <DefaultUi />
+            </Player>
         </div>
       </div>
 
