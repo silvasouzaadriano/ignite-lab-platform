@@ -19,7 +19,7 @@ export function Subscribe() {
     event?.preventDefault()
 
     if (name === '' || email === '') {
-      toast.error("Nome e e-email são obrigatório!", {
+      toast.error("Nome e e-email são obrigatórios!", {
         theme: "colored"
       })
       return
